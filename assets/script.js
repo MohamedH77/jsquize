@@ -1,4 +1,6 @@
 var startButton = document.querySelector("#button");
+var correctAnswerCount = 0;
+var wrongAnswerCount = 0;
 // var timerCount = document.querySelector();
 // var secondsRemaining = 1111;
 // var gameInProgross = false;
@@ -39,12 +41,18 @@ var questions = [
 ];
 
 function showQuestion(){
-    startButton.addEventListener("click", showQuestionOne)
+    startButton.addEventListener("click", showQuestionOne )
+    startButton.addEventListener("click",)  // timerCount)
 }
 
 var i = 0
 //function to show question 1
 function showQuestionOne(){
+    if(i >= questions.length){
+        endGame()
+        return
+    }
+
     document.getElementById('titles').innerHTML =
     `<p>${questions[i].title}</p>`
 
@@ -57,26 +65,39 @@ function showQuestionOne(){
     `
 
 }
-
 function checkAnswer(){
     document.querySelector("#choices").addEventListener("click", function(e){
             var choice = e.target.innerText
             console.log(choice)
-            if(choice  == questions[0].answer){
+            if(i >= questions.length){
+                endGame()
+            }
+            if(choice  == questions[i].answer){
                 console.log('correct')
+                correctAnswerCount = correctAnswerCount +1
                 document.getElementById('checkright').innerHTML=
                 "correct!"
             }else{console.log('wrong')
+            wrongAnswerCount = wrongAnswerCount +1
             document.getElementById('checkright').innerHTML=
                 "wrong!"
         }
         i++
         showQuestionOne()
+        console.log(correctAnswerCount)
     })
 }
-if{
-    
+
+function endGame(){
+    var finalScore = correctAnswerCount + "/5";
+    document.querySelector("#finalscore").innerHTML = "Final Score: " + finalScore
+    var startButton = document.createElement("button")
+    startButton.innerHTML = "Start Quize Again!"
+    document.querySelector("#startagain").appendChild(startButton)
 }
+
+    
+
 checkAnswer()
 //function to check answer
 
